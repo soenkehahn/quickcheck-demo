@@ -2,6 +2,8 @@
 
 module TreeSpec where
 
+import           Data.Function
+import           Data.List
 import           Test.Hspec
 import           Test.QuickCheck
 
@@ -11,23 +13,25 @@ spec :: Spec
 spec = do
   describe "insert" $ do
     it "works" $ do
-      property $ \ l a ->
-        lookupT a (insertT a (fromList l)) `shouldBe` Just a
+      property $ \ l (k :: Integer) (v :: String) ->
+        counterexample (pp (fromList l)) $
+        lookupT k (insertT k v (fromList l)) `shouldBe` Just v
 
   describe "fromList" $ do
     it "complements toList" $ do
-      property $ \ (list :: [Integer]) ->
-        toList (fromList list) `shouldBe` list
+      property $ \ (list :: [(Integer, String)]) ->
+        toList (fromList list) `shouldBe`
+          sort (nubBy ((==) `on` fst) (reverse list))
 
     it "returns sorted trees" $ do
-      property $ \ (list :: [Integer]) ->
+      property $ \ (list :: [(Integer, String)]) ->
         counterexample (pp (fromList list)) $
         isSorted (fromList list)
 
-isSorted :: Ord a => Tree a -> Bool
+isSorted :: Ord k => Tree k v -> Bool
 isSorted Empty = True
-isSorted (Tree a left right) =
-  all (< a) (toList left) &&
+isSorted (Tree k _ left right) =
+  all ((< k) . fst) (toList left) &&
   isSorted left &&
-  all (> a) (toList right) &&
+  all ((> k) . fst) (toList right) &&
   isSorted right
