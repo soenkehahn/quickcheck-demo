@@ -1,21 +1,21 @@
-
 # Notes
 
-- basic principle (???.hs)
+- Basic Principle
   - write general properties
   - generate test data
   - shrink counterexamples
+- Introductory Example: CamelCase.hs
 - Gen
+  - sample
   - size
 - Testable class
+  - `(===)`
   - `(==>)`
   - `forAll`
   - `forAllShrink`
-  - `(===)`
   - `counterexample`
   - `whenFail`
 - `Arbitrary` class
-
 - General Tips:
   - Don't use QuickCheck without something like hspec.
   - Switch back and forth between
@@ -26,3 +26,5 @@
     - writing proper counterexamples,
     - don't loose your patience.
   - QuickCheck is a heavyweight tool, consider writing unit tests first.
+  - Writing good properties is a challenge.
+- Bigger Example: Tree.hs
