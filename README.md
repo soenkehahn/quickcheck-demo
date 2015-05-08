@@ -1,10 +1,10 @@
 # Notes
 
+- Introductory Example: CamelCase.hs
 - Basic Principle
   - write general properties
   - generate test data
   - shrink counterexamples
-- Introductory Example: CamelCase.hs
 - Gen
   - sample
   - size
@@ -16,6 +16,9 @@
   - `counterexample`
   - `whenFail`
 - `Arbitrary` class
+- Bigger Example: Tree.hs
+- shrinking
+  - `shrink` returns a list of smaller values (roughly according to `size`)
 - General Tips:
   - Switch back and forth between
     - writing properties,
@@ -33,4 +36,3 @@
     - invariants
     - comparison to a golden standard
   - Sometimes it's good to avoid `Arbitrary`.
-- Bigger Example: Tree.hs
