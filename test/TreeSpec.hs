@@ -28,6 +28,11 @@ spec = do
         counterexample (pp (fromList list)) $
         isSorted (fromList list)
 
+    it "returns balanced trees" $ do
+      property $ \ (list :: [(Integer, String)]) ->
+        counterexample (pp (fromList list)) $
+        isBalanced (fromList list)
+
 isSorted :: Ord k => Tree k v -> Bool
 isSorted Empty = True
 isSorted (Tree k _ left right) =
@@ -35,3 +40,17 @@ isSorted (Tree k _ left right) =
   isSorted left &&
   all ((> k) . fst) (toList right) &&
   isSorted right
+
+isBalanced :: Tree k v -> Bool
+isBalanced t = case t of
+  Tree _ _ l r ->
+    isBalanced l &&
+    isBalanced r &&
+    (abs (height l - height r) <= 1)
+  Empty -> True
+
+height :: Tree k v -> Integer
+height t = case t of
+  Tree _ _ l r ->
+    succ (max (height l) (height r))
+  Empty -> 0
