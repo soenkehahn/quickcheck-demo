@@ -13,25 +13,18 @@ spec :: Spec
 spec = do
   describe "insert" $ do
     it "works" $ do
-      property $ \ l (k :: Integer) (v :: String) ->
-        counterexample (pp (fromList l)) $
-        lookupT k (insertT k v (fromList l)) `shouldBe` Just v
+      -- @shahn: use Arbitrary (Tree k v)
+      pending
 
   describe "fromList" $ do
     it "complements toList" $ do
-      property $ \ (list :: [(Integer, String)]) ->
-        toList (fromList list) `shouldBe`
-          sort (nubBy ((==) `on` fst) (reverse list))
+      pending
 
     it "returns sorted trees" $ do
-      property $ \ (list :: [(Integer, String)]) ->
-        counterexample (pp (fromList list)) $
-        isSorted (fromList list)
+      pending
 
     it "returns balanced trees" $ do
-      property $ \ (list :: [(Integer, String)]) ->
-        counterexample (pp (fromList list)) $
-        isBalanced (fromList list)
+      pending
 
 isSorted :: Ord k => Tree k v -> Bool
 isSorted Empty = True

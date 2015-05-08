@@ -11,29 +11,19 @@ data Trie
   deriving Show
 
 pp :: Trie -> String
-pp = T.drawTree . convert Nothing
-  where
-    convert :: Maybe Char -> Trie -> T.Tree String
-    convert mChar (Trie b cs) =
-      let label = (maybe "ROOT" ((++ " ") . show) mChar) ++ " " ++ if b then "IN" else "OUT"
-      in T.Node label (map (\ (char, child) -> convert (Just char) child) (M.toList cs))
+pp = _
 
 empty :: Trie
-empty = Trie False M.empty
+empty = _
 
 insert :: String -> Trie -> Trie
-insert [] (Trie _ cs) = Trie True cs
-insert (a : r) (Trie isElem cs) = Trie isElem $ case M.lookup a cs of
-  Nothing -> M.insert a (insert r empty) cs
-  Just c -> M.insert a (insert r c) cs
+insert = _
 
 fromList :: [String] -> Trie
-fromList = foldl' (flip insert) empty
+fromList = _
 
 toList :: Trie -> [String]
-toList (Trie isElem cs) =
-  (if isElem then [""] else []) ++
-  concat (map (\ (c, trie) -> map (c :) (toList trie)) (M.toList cs))
+toList = _
 
 member :: String -> Trie -> Bool
 member = _

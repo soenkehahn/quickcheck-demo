@@ -13,29 +13,18 @@ spec :: Spec
 spec = do
   describe "insert" $ do
     it "works" $ do
-      property $ \ list a ->
-        insert a (fromList list) `shouldSatisfy` (a `member`)
+      pending
 
   describe "fromList" $ do
     it "complements toList" $ do
-      property $ \ list ->
-        counterexample (pp (fromList list)) $
-        toList (fromList list) `shouldBe` sort (nub list)
+      pending
 
   describe "delete" $ do
     it "works" $ do
-      property $ \ list ->
-        not (null list) ==>
-        forAll (elements list) $ \ e ->
-          counterexample (pp (fromList list)) $
-          delete e (fromList list) `shouldSatisfy` (not . (e `member`))
+      pending
 
     it "leaves no useless branches in the trie" $ do
-      property $ \ list ->
-        not (null list) ==>
-        forAll (elements list) $ \ e ->
-          counterexample (pp (fromList list)) $
-          not (hasDeadBranches (delete e (fromList list)))
+      pending
 
 hasDeadBranches :: Trie -> Bool
 hasDeadBranches _root@(Trie _ cs) = any inner (M.elems cs)
