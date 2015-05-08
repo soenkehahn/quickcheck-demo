@@ -1,10 +1,7 @@
 
 module Trie where
 
-import           Data.List (foldl')
 import           Data.Map (Map)
-import qualified Data.Map as M
-import qualified Data.Tree as T
 
 data Trie
   = Trie Bool (Map Char Trie)

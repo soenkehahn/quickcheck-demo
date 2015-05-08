@@ -26,7 +26,7 @@
     - writing proper Gens,
     - writing proper shrinks,
     - writing proper counterexamples,
-    - don't loose your patience.
+    - don't lose your patience.
   - QuickCheck is a heavyweight tool, consider writing unit tests first.
   - Don't use QuickCheck without something like hspec.
   - Writing good properties is a challenge.

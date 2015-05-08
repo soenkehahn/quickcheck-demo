@@ -2,10 +2,8 @@
 
 module TrieSpec where
 
-import           Data.List (nub, sort)
 import qualified Data.Map as M
 import           Test.Hspec
-import           Test.QuickCheck
 
 import           Trie
 

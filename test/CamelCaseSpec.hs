@@ -1,7 +1,9 @@
 
 module CamelCaseSpec where
 
+import           Control.DeepSeq
 import           Data.Char
+import           Data.List
 import           Test.Hspec
 import           Test.QuickCheck
 
@@ -11,16 +13,24 @@ spec :: Spec
 spec = do
   describe "unCamel" $ do
     it "replaces upper case characters with dashes" $ do
-      pending
+      unCamel "fooBar" `shouldBe` "foo-bar"
 
     it "returns no uppercase letters" $ do
-      pending
+      property $ \ string ->
+        unCamel string `shouldSatisfy` all (not . isUpper)
 
     it "is idempotent" $ do
-      pending
+      property $ \ string ->
+        unCamel (unCamel string) `shouldBe` unCamel string
 
-    it "always replaces upper case characters with dashes" $ do
-      pending
+    it "returns strings that start with a letter" $ do
+      property $ \ string ->
+        counterexample (show (unCamel string)) $
+        (not . ("-" `isPrefixOf`)) (unCamel string)
+
+    it "doesn't crash" $ do
+      property $ \ string ->
+        deepseq (unCamel string) True
 
 lowers :: [Char]
 lowers = ['a' .. 'z']
