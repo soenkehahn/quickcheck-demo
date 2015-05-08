@@ -24,13 +24,24 @@ spec = do
         unCamel (unCamel string) `shouldBe` unCamel string
 
     it "returns strings that start with a letter" $ do
-      property $ \ string ->
-        counterexample (show (unCamel string)) $
-        (not . ("-" `isPrefixOf`)) (unCamel string)
+      property $
+        forAllShrink (listOf (elements (lowers ++ uppers))) shrink $
+        \ string ->
+          counterexample (show (unCamel string)) $
+          (not . ("-" `isPrefixOf`)) (unCamel string)
 
     it "doesn't crash" $ do
       property $ \ string ->
         deepseq (unCamel string) True
+
+    it "always removes camelCase" $ do
+      property $ \ prefix suffix ->
+        forAllShrink (elements lowers) shrink $ \ lower ->
+        forAllShrink (elements uppers) (filter isUpper . shrink) $ \ upper ->
+        let input = prefix ++ [lower, upper] ++ suffix in
+        counterexample ("input: " ++ input) $
+        unCamel input `shouldBe`
+          unCamel prefix ++ [lower, '-'] ++ unCamel (toLower upper : suffix)
 
 lowers :: [Char]
 lowers = ['a' .. 'z']

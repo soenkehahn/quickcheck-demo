@@ -4,7 +4,8 @@ module CamelCase where
 import           Data.Char
 
 unCamel :: String -> String
-unCamel (x : xs)
-  | isUpper x = '-' : toLower x : unCamel xs
-  | otherwise = x : unCamel xs
-unCamel [] = []
+unCamel (a : b : r)
+  | isUpper b = toLower a : '-' : unCamel (toLower b : r)
+  | otherwise = toLower a : unCamel (b : r)
+unCamel [x] = [toLower x]
+unCamel "" = ""
