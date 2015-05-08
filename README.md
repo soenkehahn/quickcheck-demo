@@ -17,7 +17,6 @@
   - `whenFail`
 - `Arbitrary` class
 - General Tips:
-  - Don't use QuickCheck without something like hspec.
   - Switch back and forth between
     - writing properties,
     - writing production code,
@@ -26,5 +25,12 @@
     - writing proper counterexamples,
     - don't loose your patience.
   - QuickCheck is a heavyweight tool, consider writing unit tests first.
+  - Don't use QuickCheck without something like hspec.
   - Writing good properties is a challenge.
+  - Some good candidates for properties:
+    - smoke tests
+    - idempotence
+    - invariants
+    - comparison to a golden standard
+  - Sometimes it's good to avoid `Arbitrary`.
 - Bigger Example: Tree.hs
