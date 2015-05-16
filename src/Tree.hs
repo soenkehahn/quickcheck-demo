@@ -15,6 +15,11 @@ pp = T.drawTree . convert
   convert Empty = T.Node "{}" []
   convert (Tree k _ l r) = T.Node (show k) [convert l, convert r]
 
+keys :: Tree k v -> [k]
+keys t = case t of
+  Empty -> []
+  Tree k _ l r -> keys l ++ [k] ++ keys r
+
 insertT :: Ord k => k -> v -> Tree k v -> Tree k v
 insertT k v t = case t of
   Empty -> Tree k v Empty Empty
@@ -30,6 +35,9 @@ lookupT needle t = case t of
     LT -> lookupT needle l
     GT -> lookupT needle r
   Empty -> Nothing
+
+deleteT :: k -> Tree k v -> Tree k v
+deleteT _needle _t = _
 
 fromList :: Ord k => [(k, v)] -> Tree k v
 fromList = foldl' (flip (uncurry insertT)) Empty

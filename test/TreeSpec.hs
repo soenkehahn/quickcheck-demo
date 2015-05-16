@@ -20,6 +20,12 @@ spec = do
         lookupT k (insertT k v tree)
           `shouldBe` Just v
 
+  describe "delete" $ do
+    it "works" $
+      property $ \ (tree :: Tree Int String) ->
+        forAll (elements (keys tree)) $ \ key ->
+          lookupT key (deleteT key tree) === Nothing
+
   describe "fromList" $ do
     it "complements toList" $ do
       property $ \ (list :: [(Int, String)]) ->
