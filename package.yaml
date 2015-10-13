@@ -3,7 +3,7 @@ version: "0.1"
 license: "BSD3"
 author: "Sönke Hahn"
 copyright: "Zalora South East Asia Pte Ltd"
-maintainer: "shahn@gmail.com"
+maintainer: "soenkehahn@gmail.com"
 
 tests:
   spec:
